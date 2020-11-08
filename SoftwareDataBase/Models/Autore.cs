@@ -11,7 +11,8 @@ namespace SoftwareDataBase.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class Autore
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,6 +25,7 @@ namespace SoftwareDataBase.Models
         public string Apellido { get; set; }
         public string Nombre { get; set; }
         public Nullable<System.DateTime> FechaNacimiento { get; set; }
+        [DisplayName("Seleccione Pais")]
         public int IdPais { get; set; }
     
         public virtual Pais Pais { get; set; }

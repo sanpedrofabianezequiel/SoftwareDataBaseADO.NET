@@ -1,16 +1,15 @@
 ﻿@model IEnumerable<SoftwareDataBase.Models.Pais>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Paises";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<h2>Listado de paises</h2>
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ID)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.Nombre)
         </th>
@@ -22,10 +21,9 @@
         <td>
             @Html.DisplayFor(modelItem => item.Nombre)
         </td>
+      
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.DisplayFor(modelImte => item.ID)
         </td>
     </tr>
 }
