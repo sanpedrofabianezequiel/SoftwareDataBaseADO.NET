@@ -11,3 +11,30 @@ Instalamos las libreras para exportar
 -iTextSharp.pdfa
 
 Usamos un RETURN DE FILESTREAMRESULT();
+
+
+CREATE PROCEDURE procBorrarAutor
+(
+@id int
+)
+as
+DELETE Autores
+where ID = @id
+
+-----------------------
+CREATE PROCEDURE procAltaAutor
+(
+@Apellido varchar(50),
+@Nombre varchar (50),
+@FechaNacimiento date,
+@idPais int
+)
+as
+INSERT Autores
+VALUES(
+	@Apellido,
+	@Nombre ,
+	@FechaNacimiento ,
+	@idPais 
+
+)
