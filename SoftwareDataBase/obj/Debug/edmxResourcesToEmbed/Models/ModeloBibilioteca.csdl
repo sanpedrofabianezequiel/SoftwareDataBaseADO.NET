@@ -112,5 +112,12 @@
       <End Role="Autores" EntitySet="Autores" />
       <End Role="Libros" EntitySet="Libros" />
     </AssociationSet>
+    <FunctionImport Name="proce_edit_autor">
+      <Parameter Name="ID" Mode="In" Type="Int32" />
+      <Parameter Name="Apellido" Mode="In" Type="String" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="FechaNac" Mode="In" Type="DateTime" />
+      <Parameter Name="IdPais" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
 </Schema>

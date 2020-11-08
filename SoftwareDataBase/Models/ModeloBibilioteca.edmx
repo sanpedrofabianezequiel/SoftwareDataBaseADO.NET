@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BibliotecaOKModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BibliotecaOKModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Autores">
           <Key>
             <PropertyRef Name="ID" />
@@ -115,6 +115,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="proce_edit_autor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="Apellido" Type="varchar" Mode="In" />
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="FechaNac" Type="date" Mode="In" />
+          <Parameter Name="IdPais" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="BibliotecaOKModelStoreContainer">
           <EntitySet Name="Autores" EntityType="Self.Autores" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Editoriales" EntityType="Self.Editoriales" Schema="dbo" store:Type="Tables" />
@@ -143,8 +150,7 @@
             <End Role="LibrosAutores" EntitySet="LibrosAutores" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BibliotecaOKModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -260,6 +266,13 @@
             <End Role="Autores" EntitySet="Autores" />
             <End Role="Libros" EntitySet="Libros" />
           </AssociationSet>
+          <FunctionImport Name="proce_edit_autor">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="Apellido" Mode="In" Type="String" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="FechaNac" Mode="In" Type="DateTime" />
+            <Parameter Name="IdPais" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -276,6 +289,17 @@
                 <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
                 <ScalarProperty Name="IdPais" ColumnName="IdPais" />
               </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="BibliotecaOKModel.Autore">
+              <ModificationFunctionMapping>
+                <UpdateFunction FunctionName="BibliotecaOKModel.Store.proce_edit_autor">
+                  <ScalarProperty Name="FechaNacimiento" ParameterName="FechaNac" Version="Current" />
+                  <ScalarProperty Name="IdPais" ParameterName="IdPais" Version="Current" />
+                  <ScalarProperty Name="Nombre" ParameterName="Nombre" Version="Current" />
+                  <ScalarProperty Name="Apellido" ParameterName="Apellido" Version="Current" />
+                  <ScalarProperty Name="ID" ParameterName="ID" Version="Current" />
+                </UpdateFunction>
+              </ModificationFunctionMapping>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Editoriales">
@@ -322,6 +346,7 @@
               <ScalarProperty Name="ISBN" ColumnName="ISBN" />
             </EndProperty>
           </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="proce_edit_autor" FunctionName="BibliotecaOKModel.Store.proce_edit_autor" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

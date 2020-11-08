@@ -17,7 +17,16 @@ namespace SoftwareDataBase.Controllers
         // GET: Autores
         public ActionResult Index()
         {
-            var autores = db.Autores.Include(a => a.Pais);
+            #region Otra Opcion
+            //var autores = db.Autores.Include(a => a.Pais);
+            #endregion
+            #region Otra Opcion
+            //IEnumerable<Models.Autore> autores = from x in db.Autores
+            //                                     select x;
+            //autores = autores.Where(x => x.IdPais == 1);
+            #endregion
+            IQueryable<Models.Autore> autores = from x in db.Autores
+                                                select x;
             return View(autores.ToList());
         }
 

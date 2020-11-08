@@ -11,6 +11,17 @@
           <ScalarProperty Name="IdPais" ColumnName="IdPais" />
         </MappingFragment>
       </EntityTypeMapping>
+      <EntityTypeMapping TypeName="BibliotecaOKModel.Autore">
+        <ModificationFunctionMapping>
+          <UpdateFunction FunctionName="BibliotecaOKModel.Store.proce_edit_autor">
+            <ScalarProperty Name="FechaNacimiento" ParameterName="FechaNac" Version="Current" />
+            <ScalarProperty Name="IdPais" ParameterName="IdPais" Version="Current" />
+            <ScalarProperty Name="Nombre" ParameterName="Nombre" Version="Current" />
+            <ScalarProperty Name="Apellido" ParameterName="Apellido" Version="Current" />
+            <ScalarProperty Name="ID" ParameterName="ID" Version="Current" />
+          </UpdateFunction>
+        </ModificationFunctionMapping>
+      </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Editoriales">
       <EntityTypeMapping TypeName="BibliotecaOKModel.Editoriale">
@@ -56,5 +67,6 @@
         <ScalarProperty Name="ISBN" ColumnName="ISBN" />
       </EndProperty>
     </AssociationSetMapping>
+    <FunctionImportMapping FunctionImportName="proce_edit_autor" FunctionName="BibliotecaOKModel.Store.proce_edit_autor" />
   </EntityContainerMapping>
 </Mapping>

@@ -1,0 +1,38 @@
+CREATE PROCEDURE [dbo].[proce_edit_autor]
+(
+	@ID int,
+	@Apellido varchar (50),
+	@Nombre varchar(50),
+	@FechaNac date,
+	@IdPais int
+)
+as
+/*Cuerpo Principal del Procedur*/
+BEGIN TRY
+	BEGIN TRANSACTION
+	/*Apellido Actual*/
+	declare @Ape varchar (50)
+	set @ape = (select apellido from Autores where id =@ID)
+
+		/*Comienzan las transacciones*/
+		UPDATE Autores
+		set Apellido =@Apellido,
+		FechaNacimiento =@FechaNac,
+		IdPais =@IdPais
+			WHERE id=@ID
+		-----------------------------------
+		/*Si el apellido es dintinto insertamos ese movimiento*/
+		IF @Ape <> @Apellido
+				BEGIN
+				/*Insertamos el dato viejo/actual en la table que lleva el CRM*/
+					INSERT LogAutores(Usuario,Fecha,ApellidoAnterior,ApellidoActual)
+						VALUES(CURRENT_USER,GETDATE(),@Ape,@Apellido)
+				END 
+
+		
+	COMMIT TRANSACTION
+END TRY
+BEGIN CATCH
+			ROLLBACK TRANSACTION
+			RAISERROR('ERROR, NO SE PUDO MODIFICAR EL AUTOR',16,1)
+END CATCH

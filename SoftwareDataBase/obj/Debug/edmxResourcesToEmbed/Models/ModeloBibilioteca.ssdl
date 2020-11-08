@@ -110,6 +110,13 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="proce_edit_autor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ID" Type="int" Mode="In" />
+    <Parameter Name="Apellido" Type="varchar" Mode="In" />
+    <Parameter Name="Nombre" Type="varchar" Mode="In" />
+    <Parameter Name="FechaNac" Type="date" Mode="In" />
+    <Parameter Name="IdPais" Type="int" Mode="In" />
+  </Function>
   <EntityContainer Name="BibliotecaOKModelStoreContainer">
     <EntitySet Name="Autores" EntityType="Self.Autores" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Editoriales" EntityType="Self.Editoriales" Schema="dbo" store:Type="Tables" />
