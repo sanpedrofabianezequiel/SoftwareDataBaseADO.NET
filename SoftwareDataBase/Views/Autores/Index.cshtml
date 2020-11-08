@@ -1,51 +1,49 @@
 ﻿@model IEnumerable<SoftwareDataBase.Models.Autore>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Autores";
+    WebGrid grid = new WebGrid(Model);
 }
+<link href="~/Content/MisEstilosGrid.css" rel="stylesheet" />
+<h2>Autores</h2>
+<!--Con esto podemos Paginar y filtrar por columnas-->
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Apellido)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FechaNacimiento)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Pais.Nombre)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Apellido)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaNacimiento)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Pais.Nombre)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+@grid.GetHtml(
+    fillEmptyRows: false,
+    tableStyle: "webgrid-table",
+    headerStyle: "webgrid-header",
+    footerStyle: "webgrid-footer",
+    alternatingRowStyle: "webgrid-alternating-row",
+    rowStyle: "webgrid-row-style",
 
-</table>
+    mode: WebGridPagerModes.All,
+    firstText: "<< Primera",
+    previousText: "< Anterior",
+    nextText: "Siguiente >",
+    lastText: "Última >>",
+columns: new[]
+{
+    grid.Column("ID",header:"Codigo"),
+    grid.Column("Apellido",header:"Apellido"),
+    grid.Column("Nombre",header:"Nombre"),
+    grid.Column("IdPais",header:"Cod.Pais"),
+    grid.Column("Pais.Nombre",header:"Pais"),
+    //Podemos usar el mapping en el primer parametro
+    grid.Column("FechaNacimiento",header:"Fecha Nacimiento",format: (item) => string.Format("{0:dd/MM/yyyy}", item.FechaNacimiento)),
+    grid.Column("",
+          header: "Acciones",
+          format: @<text>
+    @Html.ActionLink("Editar", "Edit", new { id = item.ID })
+    @Html.ActionLink("Eliminar", "Delete", new { id = item.ID })
+        </text>
+     )
+})
+
+
+
+
+
+
+

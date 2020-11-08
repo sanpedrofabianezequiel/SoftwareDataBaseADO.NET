@@ -97,6 +97,22 @@ namespace SoftwareDataBase.Controllers
             {
                 db.Entry(autore).State = EntityState.Modified;
                 db.SaveChanges();
+                #region Otra Opcion para Trabajar con el StoreProcedure es en el Contralador
+                /*
+                if(ModelState.IsValid){
+                
+                _context.MyStoreProcedure(parametros del Procedure);
+                
+                return RedirecToAction("Index");
+                }
+                Sino--
+                ViewBag.Nacionalida = new SelecList(_context.Paises, "ID", "Descripcion", autore.Nacionalidad)
+                return View(autore);
+
+                */
+                #endregion
+
+
                 return RedirectToAction("Index");
             }
             ViewBag.IdPais = new SelectList(db.Paises, "ID", "Nombre", autore.IdPais);
