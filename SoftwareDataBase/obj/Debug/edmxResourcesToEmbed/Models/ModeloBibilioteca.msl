@@ -20,6 +20,15 @@
             <ScalarProperty Name="Apellido" ParameterName="Apellido" Version="Current" />
             <ScalarProperty Name="ID" ParameterName="ID" Version="Current" />
           </UpdateFunction>
+          <DeleteFunction FunctionName="BibliotecaOKModel.Store.procBorrarAutor">
+            <ScalarProperty Name="ID" ParameterName="id" />
+          </DeleteFunction>
+          <InsertFunction FunctionName="BibliotecaOKModel.Store.procAltaAutor">
+            <ScalarProperty Name="IdPais" ParameterName="idPais" />
+            <ScalarProperty Name="FechaNacimiento" ParameterName="FechaNacimiento" />
+            <ScalarProperty Name="Nombre" ParameterName="Nombre" />
+            <ScalarProperty Name="Apellido" ParameterName="Apellido" />
+          </InsertFunction>
         </ModificationFunctionMapping>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -68,5 +77,7 @@
       </EndProperty>
     </AssociationSetMapping>
     <FunctionImportMapping FunctionImportName="proce_edit_autor" FunctionName="BibliotecaOKModel.Store.proce_edit_autor" />
+    <FunctionImportMapping FunctionImportName="procAltaAutor" FunctionName="BibliotecaOKModel.Store.procAltaAutor" />
+    <FunctionImportMapping FunctionImportName="procBorrarAutor" FunctionName="BibliotecaOKModel.Store.procBorrarAutor" />
   </EntityContainerMapping>
 </Mapping>

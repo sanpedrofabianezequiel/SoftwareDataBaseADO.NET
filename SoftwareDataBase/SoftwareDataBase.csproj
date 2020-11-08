@@ -142,6 +142,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AutoresController.cs" />
+    <Compile Include="Controllers\GenerosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PaisesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -239,6 +240,11 @@
     <Content Include="Views\Autores\Details.cshtml" />
     <Content Include="Views\Autores\Edit.cshtml" />
     <Content Include="Views\Autores\Index.cshtml" />
+    <Content Include="Views\Generos\Create.cshtml" />
+    <Content Include="Views\Generos\Delete.cshtml" />
+    <Content Include="Views\Generos\Details.cshtml" />
+    <Content Include="Views\Generos\Edit.cshtml" />
+    <Content Include="Views\Generos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

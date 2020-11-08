@@ -57,5 +57,35 @@ namespace SoftwareDataBase.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("proce_edit_autor", iDParameter, apellidoParameter, nombreParameter, fechaNacParameter, idPaisParameter);
         }
+    
+        public virtual int procAltaAutor(string apellido, string nombre, Nullable<System.DateTime> fechaNacimiento, Nullable<int> idPais)
+        {
+            var apellidoParameter = apellido != null ?
+                new ObjectParameter("Apellido", apellido) :
+                new ObjectParameter("Apellido", typeof(string));
+    
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("Nombre", nombre) :
+                new ObjectParameter("Nombre", typeof(string));
+    
+            var fechaNacimientoParameter = fechaNacimiento.HasValue ?
+                new ObjectParameter("FechaNacimiento", fechaNacimiento) :
+                new ObjectParameter("FechaNacimiento", typeof(System.DateTime));
+    
+            var idPaisParameter = idPais.HasValue ?
+                new ObjectParameter("idPais", idPais) :
+                new ObjectParameter("idPais", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("procAltaAutor", apellidoParameter, nombreParameter, fechaNacimientoParameter, idPaisParameter);
+        }
+    
+        public virtual int procBorrarAutor(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("procBorrarAutor", idParameter);
+        }
     }
 }

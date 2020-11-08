@@ -115,6 +115,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="procAltaAutor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Apellido" Type="varchar" Mode="In" />
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="FechaNacimiento" Type="date" Mode="In" />
+          <Parameter Name="idPais" Type="int" Mode="In" />
+        </Function>
+        <Function Name="procBorrarAutor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="proce_edit_autor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID" Type="int" Mode="In" />
           <Parameter Name="Apellido" Type="varchar" Mode="In" />
@@ -273,6 +282,15 @@
             <Parameter Name="FechaNac" Mode="In" Type="DateTime" />
             <Parameter Name="IdPais" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="procAltaAutor">
+            <Parameter Name="Apellido" Mode="In" Type="String" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="FechaNacimiento" Mode="In" Type="DateTime" />
+            <Parameter Name="idPais" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="procBorrarAutor">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -299,6 +317,15 @@
                   <ScalarProperty Name="Apellido" ParameterName="Apellido" Version="Current" />
                   <ScalarProperty Name="ID" ParameterName="ID" Version="Current" />
                 </UpdateFunction>
+                <DeleteFunction FunctionName="BibliotecaOKModel.Store.procBorrarAutor" >
+                  <ScalarProperty Name="ID" ParameterName="id" />
+                </DeleteFunction>
+                <InsertFunction FunctionName="BibliotecaOKModel.Store.procAltaAutor">
+                  <ScalarProperty Name="IdPais" ParameterName="idPais" />
+                  <ScalarProperty Name="FechaNacimiento" ParameterName="FechaNacimiento" />
+                  <ScalarProperty Name="Nombre" ParameterName="Nombre" />
+                  <ScalarProperty Name="Apellido" ParameterName="Apellido" />
+                </InsertFunction>
               </ModificationFunctionMapping>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -347,6 +374,8 @@
             </EndProperty>
           </AssociationSetMapping>
           <FunctionImportMapping FunctionImportName="proce_edit_autor" FunctionName="BibliotecaOKModel.Store.proce_edit_autor" />
+          <FunctionImportMapping FunctionImportName="procAltaAutor" FunctionName="BibliotecaOKModel.Store.procAltaAutor" />
+          <FunctionImportMapping FunctionImportName="procBorrarAutor" FunctionName="BibliotecaOKModel.Store.procBorrarAutor" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

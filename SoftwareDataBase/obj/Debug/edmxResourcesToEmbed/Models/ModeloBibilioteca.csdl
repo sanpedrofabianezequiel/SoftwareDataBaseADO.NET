@@ -119,5 +119,14 @@
       <Parameter Name="FechaNac" Mode="In" Type="DateTime" />
       <Parameter Name="IdPais" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="procAltaAutor">
+      <Parameter Name="Apellido" Mode="In" Type="String" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="FechaNacimiento" Mode="In" Type="DateTime" />
+      <Parameter Name="idPais" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="procBorrarAutor">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
 </Schema>
