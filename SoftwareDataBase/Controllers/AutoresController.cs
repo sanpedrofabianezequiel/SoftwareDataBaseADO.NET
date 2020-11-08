@@ -2,10 +2,17 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using Org.BouncyCastle.Asn1.Ocsp;
 using SoftwareDataBase.Models;
 
 namespace SoftwareDataBase.Controllers
@@ -152,6 +159,74 @@ namespace SoftwareDataBase.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+
+        public FileStreamResult ExportaPDF()
+        {
+            var autores = db.Autores.ToList();
+
+            //Creamos un WebGrid
+            WebGrid grid = new WebGrid(source:autores, canPage:false, canSort:false);
+            string gridHTML =
+                    grid.GetHtml(
+                        columns: grid.Columns
+                                (
+                                     grid.Column("ID", header: "Codigo"),
+                                     grid.Column("Apellido", header: "Apellido"),
+                                     grid.Column("Nombre", header: "Nombre"),
+                                     grid.Column("IdPais", header: "Cod.Pais"),
+                                     grid.Column("Pais.Nombre", header: "Pais")
+                                )
+
+
+                        ).ToString();
+            //--------------------
+            string exportaData = string.Format("<html><head>{0}</head><body>{1}</body></html>","<p>Lista de Autores</p> <style>table{ borde-spacing:10px; border-collapse:separate;}</style>", gridHTML);
+
+            var bytes = System.Text.Encoding.UTF8.GetBytes(exportaData);
+            
+            using ( var input = new MemoryStream(bytes))
+            {
+                var output = new MemoryStream();
+                //Setiamos el tamalo y margenes
+                var document = new iTextSharp.text.Document(PageSize.A4,50,50,50,50);
+                var writer = PdfWriter.GetInstance(document,output);
+                writer.CloseStream = false;
+                
+                document.Open();
+
+                var xmlWorker = iTextSharp.tool.xml.XMLWorkerHelper.GetInstance();
+                xmlWorker.ParseXHtml(writer,document,input,System.Text.Encoding.UTF8);
+
+                document.Close();
+                output.Position = 0;
+                return new FileStreamResult(output, "application/pdf");
+            }
+                
+        }
+
+
+        public ActionResult ExportaExcel()
+        {
+            var grid = new GridView();
+            grid.DataSource = db.Autores.ToList();
+            grid.DataBind();
+
+            Response.ClearContent();
+            Response.AddHeader("content-disposition", "inline; filename=Autores.xls");
+            Response.ContentType = "application/excel";
+
+            StringWriter sw = new StringWriter();
+            HtmlTextWriter htw = new HtmlTextWriter(sw);
+
+            //Renderizamos
+            grid.RenderControl(htw);
+
+            Response.Write(sw.ToString());
+            Response.End();
+
+            return View("Index");
         }
     }
 }

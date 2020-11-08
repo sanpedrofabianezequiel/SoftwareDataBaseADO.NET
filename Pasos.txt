@@ -4,3 +4,10 @@ En el Modelo Agregamos un nuevo elemento de DATOS
 DATOS= ADO.NET
 
 Cuando creamos un contraolador, se utiliza el motor Scafolding
+-------------
+Instalamos las libreras para exportar
+-ITextSharp
+-XMLWORKER
+-iTextSharp.pdfa
+
+Usamos un RETURN DE FILESTREAMRESULT();

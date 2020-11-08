@@ -88,3 +88,8 @@ C:\Users\sanpe\source\repos\SoftwareDataBaseFrontEnd\SoftwareDataBase\obj\Debug\
 C:\Users\sanpe\source\repos\SoftwareDataBaseFrontEnd\SoftwareDataBase\obj\Debug\SoftwareDataBase.csproj.CopyComplete
 C:\Users\sanpe\source\repos\SoftwareDataBaseFrontEnd\SoftwareDataBase\obj\Debug\SoftwareDataBase.dll
 C:\Users\sanpe\source\repos\SoftwareDataBaseFrontEnd\SoftwareDataBase\obj\Debug\SoftwareDataBase.pdb
+C:\Users\sanpe\source\repos\SoftwareDataBaseFrontEnd\SoftwareDataBase\bin\BouncyCastle.Crypto.dll
+C:\Users\sanpe\source\repos\SoftwareDataBaseFrontEnd\SoftwareDataBase\bin\itextsharp.dll
+C:\Users\sanpe\source\repos\SoftwareDataBaseFrontEnd\SoftwareDataBase\bin\itextsharp.pdfa.dll
+C:\Users\sanpe\source\repos\SoftwareDataBaseFrontEnd\SoftwareDataBase\bin\itextsharp.xmlworker.dll
+C:\Users\sanpe\source\repos\SoftwareDataBaseFrontEnd\SoftwareDataBase\bin\itextsharp.xml
