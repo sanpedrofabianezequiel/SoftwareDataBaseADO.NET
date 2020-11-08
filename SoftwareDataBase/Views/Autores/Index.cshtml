@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Autores";
-    WebGrid grid = new WebGrid(Model);
+    WebGrid grid = new WebGrid(Model,rowsPerPage:5);
 }
 <link href="~/Content/MisEstilosGrid.css" rel="stylesheet" />
 <h2>Autores</h2>
@@ -29,6 +29,7 @@ columns: new[]
     grid.Column("Apellido",header:"Apellido"),
     grid.Column("Nombre",header:"Nombre"),
     grid.Column("IdPais",header:"Cod.Pais"),
+    //Podemos usar el mapping en el primer parametro
     grid.Column("Pais.Nombre",header:"Pais"),
     //Podemos usar el mapping en el primer parametro
     grid.Column("FechaNacimiento",header:"Fecha Nacimiento",format: (item) => string.Format("{0:dd/MM/yyyy}", item.FechaNacimiento)),
@@ -40,7 +41,10 @@ columns: new[]
         </text>
      )
 })
+<p>
+    @Html.ActionLink("Exportar a PDF","ExportaPDF","Autores")
 
+</p>
 
 
 
