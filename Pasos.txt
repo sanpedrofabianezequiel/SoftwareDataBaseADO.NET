@@ -2,3 +2,5 @@ Creamos un proyecto ASP con MVC
 Instalamos EntityFrameWork
 En el Modelo Agregamos un nuevo elemento de DATOS
 DATOS= ADO.NET
+
+Cuando creamos un contraolador, se utiliza el motor Scafolding

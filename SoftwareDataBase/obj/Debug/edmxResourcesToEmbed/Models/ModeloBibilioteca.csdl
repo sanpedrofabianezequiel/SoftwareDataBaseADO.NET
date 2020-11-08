@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BibliotecaOKModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Autore">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FechaNacimiento" Type="DateTime" Precision="0" />
+    <Property Name="IdPais" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Pais" Relationship="Self.FK_Autores_Paises" FromRole="Autores" ToRole="Paises" />
+    <NavigationProperty Name="Libros" Relationship="Self.LibrosAutores" FromRole="Autores" ToRole="Libros" />
+  </EntityType>
+  <EntityType Name="Editoriale">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Libros" Relationship="Self.FK_Libros_Editoriales" FromRole="Editoriales" ToRole="Libros" />
+  </EntityType>
+  <EntityType Name="Genero">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Libros" Relationship="Self.FK_Libros_Generos" FromRole="Generos" ToRole="Libros" />
+  </EntityType>
+  <EntityType Name="Libro">
+    <Key>
+      <PropertyRef Name="ISBN" />
+    </Key>
+    <Property Name="ISBN" Type="String" MaxLength="17" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Titulo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Edicion" Type="Int32" />
+    <Property Name="IdGenero" Type="Int32" />
+    <Property Name="IdEditorial" Type="Int32" />
+    <Property Name="Paginas" Type="Int32" />
+    <NavigationProperty Name="Editoriale" Relationship="Self.FK_Libros_Editoriales" FromRole="Libros" ToRole="Editoriales" />
+    <NavigationProperty Name="Genero" Relationship="Self.FK_Libros_Generos" FromRole="Libros" ToRole="Generos" />
+    <NavigationProperty Name="Autores" Relationship="Self.LibrosAutores" FromRole="Libros" ToRole="Autores" />
+  </EntityType>
+  <EntityType Name="Pais">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Autores" Relationship="Self.FK_Autores_Paises" FromRole="Paises" ToRole="Autores" />
+  </EntityType>
+  <Association Name="FK_Autores_Paises">
+    <End Role="Paises" Type="Self.Pais" Multiplicity="1" />
+    <End Role="Autores" Type="Self.Autore" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Paises">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Autores">
+        <PropertyRef Name="IdPais" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Libros_Editoriales">
+    <End Role="Editoriales" Type="Self.Editoriale" Multiplicity="0..1" />
+    <End Role="Libros" Type="Self.Libro" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Editoriales">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Libros">
+        <PropertyRef Name="IdEditorial" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Libros_Generos">
+    <End Role="Generos" Type="Self.Genero" Multiplicity="0..1" />
+    <End Role="Libros" Type="Self.Libro" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Generos">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Libros">
+        <PropertyRef Name="IdGenero" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="LibrosAutores">
+    <End Role="Autores" Type="Self.Autore" Multiplicity="*" />
+    <End Role="Libros" Type="Self.Libro" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="BibliotecaOKEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Autores" EntityType="Self.Autore" />
+    <EntitySet Name="Editoriales" EntityType="Self.Editoriale" />
+    <EntitySet Name="Generos" EntityType="Self.Genero" />
+    <EntitySet Name="Libros" EntityType="Self.Libro" />
+    <EntitySet Name="Paises" EntityType="Self.Pais" />
+    <AssociationSet Name="FK_Autores_Paises" Association="Self.FK_Autores_Paises">
+      <End Role="Paises" EntitySet="Paises" />
+      <End Role="Autores" EntitySet="Autores" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Libros_Editoriales" Association="Self.FK_Libros_Editoriales">
+      <End Role="Editoriales" EntitySet="Editoriales" />
+      <End Role="Libros" EntitySet="Libros" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Libros_Generos" Association="Self.FK_Libros_Generos">
+      <End Role="Generos" EntitySet="Generos" />
+      <End Role="Libros" EntitySet="Libros" />
+    </AssociationSet>
+    <AssociationSet Name="LibrosAutores" Association="Self.LibrosAutores">
+      <End Role="Autores" EntitySet="Autores" />
+      <End Role="Libros" EntitySet="Libros" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
