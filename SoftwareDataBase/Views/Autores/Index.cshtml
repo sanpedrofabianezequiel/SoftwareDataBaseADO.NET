@@ -8,6 +8,15 @@
 <h2>Autores</h2>
 <!--Con esto podemos Paginar y filtrar por columnas-->
 
+@using (Html.BeginForm())
+{
+    <p>
+        <!--En este caso como el disparador es el Index, va a ir a ese Metodo del controller, donde le enviamos un 
+            string "buscar" como parametros-->
+        Busar por Apellido: @Html.TextBox("buscar")
+        <input type="submit" name="buscar" value="Buscar"  class="btn-primary"/>
+    </p>
+}
 
 
 @grid.GetHtml(

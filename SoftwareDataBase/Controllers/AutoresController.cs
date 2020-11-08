@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Security.AccessControl;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
@@ -22,7 +23,7 @@ namespace SoftwareDataBase.Controllers
         private BibliotecaOKEntities db = new BibliotecaOKEntities();
 
         // GET: Autores
-        public ActionResult Index()
+        public ActionResult Index(string buscar)
         {
             #region Otra Opcion
             //var autores = db.Autores.Include(a => a.Pais);
@@ -32,9 +33,29 @@ namespace SoftwareDataBase.Controllers
             //                                     select x;
             //autores = autores.Where(x => x.IdPais == 1);
             #endregion
-            IQueryable<Models.Autore> autores = from x in db.Autores
-                                                select x;
-            return View(autores.ToList());
+            #region Otra Opcion
+            //IQueryable<Models.Autore> autores = from x in db.Autores
+            //                                    select x;
+            //return View(autores.ToList());
+            #endregion
+            #region Filtrado con TextBox
+            var autores = from x in db.Autores
+                          select x;
+            //El IQuereably, todavia nose ejecuta y podemos preguntar si el STRING es Null primero o vacio
+            //IQuereably es el Mejor tipo
+            //IEnumerable , carga todo en memoria, por eso gasta mas recurso
+            if (!string.IsNullOrEmpty(buscar))
+            {
+                //Buscamos/Filtramos
+                autores = autores.Where(x => x.Apellido.Contains(buscar));
+                //Si queremos que comience con las letras que estamos tipiando seria:
+                autores = autores.Where(x => x.Apellido.StartsWith(buscar));
+            }
+            return View(autores.ToList());//En primera instancia trae todos los autores, hasta que envio un dato
+            #endregion
+
+
+
         }
 
         // GET: Autores/Details/5
